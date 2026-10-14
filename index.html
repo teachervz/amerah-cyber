@@ -102,6 +102,13 @@ input{font-family:inherit;-webkit-user-select:text;user-select:text}
 .rc-hint{margin-top:auto;font-size:20px;font-weight:700;color:#A393CC}
 .rc-a{display:none;margin-top:auto;background:var(--okS);border-right:6px solid var(--ok);border-radius:16px;padding:10px 14px;
   font-size:21px;font-weight:700;line-height:1.55;color:#065F46}
+.recap.few{flex:none;height:560px;max-height:none}
+.recap.few .rc{padding:26px 32px;gap:18px}
+.recap.few .rc-kind{font-size:26px;padding:6px 20px}
+.recap.few .rc-n{width:54px;height:54px;font-size:28px}
+.recap.few .rc-q{font-size:36px}
+.recap.few .rc-hint{font-size:26px}
+.recap.few .rc-a{font-size:29px;padding:14px 18px}
 .rc.open{border-color:var(--ok);border-top-color:var(--ok)}
 .rc.open .rc-hint{display:none}
 .rc.open .rc-a{display:block;animation:pop .4s}
@@ -646,13 +653,7 @@ const SLIDES = [
       { kind:'❓ اختاري', q:'المرحلة التي تُستخدم فيها أدوات جمع البيانات (الاستبانات والمقابلات) هي مرحلة…',
         a:'التحليل 📝 — لتحديد المستخدِمين واحتياجاتهم ومتطلباتهم.' },
       { kind:'🧠 فكّري', q:'ما المرحلتان المستمرتان طوال دورة حياة النظام؟',
-        a:'التوثيق والتقييم 🔄 — تبدآن مع التخطيط وتستمران حتى الصيانة.' },
-      { kind:'🗂️ صنّفي', q:'«قدرة النظام على استرجاع البيانات غير المحفوظة عند انقطاع الطاقة» متطلب وظيفي أم غير وظيفي؟',
-        a:'غير وظيفي ⚙️ — يصف جودة النظام (الموثوقية)، لا ما يقوم به.' },
-      { kind:'🔍 اذكري', q:'طريقتين لجمع متطلبات النظام، مع ميزة لكل منهما.',
-        a:'الاستبانات (وقت أقل) • المقابلات (تفسير فوري للأسئلة) • الملاحظة (تفاصيل دقيقة) • فحص توثيقات النظام (توفير الوقت).' },
-      { kind:'🔷 مخطط سير العمل', q:'ماذا يمثّل شكل المعيّن ◇ وشكل المستطيل ▭ في مُخطط سير العمل؟',
-        a:'المعيّن: اتخاذ قرار • المستطيل: عملية أو وظيفة.' }
+        a:'التوثيق والتقييم 🔄 — تبدآن مع التخطيط وتستمران حتى الصيانة.' }
     ] },
 
   /* 4) تمهيد بموقف واقعي — ماذا تتوقعين؟ */
@@ -1297,7 +1298,7 @@ R.reveal = {
 
 /* مراجعة الدرس السابق */
 R.recap = {
-  html:s=>`<div class="recap rv">${s.questions.map((q,k)=>`<button class="rc" style="--c:${PALETTE[k%PALETTE.length]}">
+  html:s=>`<div class="recap${s.questions.length<=3?' few':''} rv">${s.questions.map((q,k)=>`<button class="rc" style="--c:${PALETTE[k%PALETTE.length]}">
       <div class="rc-top"><span class="rc-kind">${q.kind}</span><span class="rc-n">${k+1}</span></div>
       <div class="rc-q">${q.q}</div><div class="rc-hint">💡 اضغطي لإظهار الإجابة</div><div class="rc-a">${q.a}</div></button>`).join('')}</div>`,
   init:sec=>$$('.rc',sec).forEach(c=>c.onclick=()=>{ c.classList.toggle('open'); if(c.classList.contains('open')) sound.pop(); })
